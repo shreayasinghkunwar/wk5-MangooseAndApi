@@ -28,3 +28,31 @@ router.get("/:activityid/facts", async (req, res) => {
     }
 })
 
+
+router.put("/:activityid/facts/:factId", async (req, res) => {
+    try {
+        const actId = req.params.activityId;
+        const factId = req.params.factId;
+        const UpdateFact = await Facts.findByIdAndUpdate(factId, req.body, {
+            new: true
+        });
+        res.send(UpdateFact);
+
+    } catch (e) {
+        res.status(400).send(e)
+    }
+
+})
+
+router.delete("/:activityid/facts/:factId", async (req, res) => {
+    try {
+        const activityId = req.params.activityId;
+        const factid = req.params.factId;
+        const deleteFact = await Facts.deleteOne({ _id: factid, activityid: activityId });
+        res.send(deleteFact)
+
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+module.exports = router
