@@ -18,3 +18,13 @@ router.post("/:activityid/facts", async (req, res) => {
         res.status(400).send(e);
     }
 })
+
+router.get("/:activityid/facts", async (req, res) => {
+    try {
+        const getFact = await Facts.find({ activityid: req.params.activityid });
+        res.send(getFact);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
+
